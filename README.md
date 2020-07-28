@@ -4,7 +4,7 @@
 This script converts Area of Interest (AOI) footprints from Planet Labs data ordered each month through CSDAP into usaable DESIS tasking regions.  The idea is that it may prove valuable to task DESIS for data that has similar AOIs as data ordered from Planet Labs. This script takes a csv file that containts Planet geojson_geometry and converts it to geopandas geometry to determine polygons, area (km2), maximum latitude and longitude, and minimum latitude and longitude for DESIS tasking.
 
 ## Required Libraries
-pandas, geopandas, shapely, 
+pandas, geopandas, shapely 
 
 ## Running the Script
 1. Download the monthly NASA Planet Labs Mirror csv file. 
