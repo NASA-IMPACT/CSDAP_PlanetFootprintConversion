@@ -12,11 +12,11 @@ pandas, geopandas, shapely
 3. The script will first prompt to enter the csv file name.
 4. User will next be prompted to enter the year (e.g., xxxx) of the mirrored data. This will be included in the output file name.
 5. User will then be prompted to enter the month (e.g., xx) of the mirrored data. This will be included in the output file name.
-6. The script will output a csv file (
+6. The script will output a csv file.
 
 ## Examples
 1. User downloads the following Planet Labs monthly data order csv file to convert for DESIS taskeing: "NASA_Mirror_2020_06NASA_Mirror_2020_06.csv." Enter the following command:
-'$python planet_aoi_conversion.py'
+'$python planet_aoi_conversion.py '
 2. User will be prompted with: "Please enter the csv file name including the extension:"
 In this case, the user will enter "NASA_Mirror_2020_06NASA_Mirror_2020_06.csv"
 3. User will be prompted with "Please enter the year that the data was mirrored in the following format yyyy:"
