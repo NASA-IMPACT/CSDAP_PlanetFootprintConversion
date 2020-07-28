@@ -1,3 +1,14 @@
+"""This is a simple script to convert footprints from Planet Labs CSDAP monthly data orders into a usable format for DESIS tasking. It makes the
+following assumption:
+- Python version >=3.6
+- Script is called with path to the NASA Mirror CSV (e.g. "python planet_aoi_conversion.py NASA_Mirror_2020_06NASA_Mirror_2020_06.csv")
+- The input CSV is expected to contain the following columns:
+    - org_id, org_name, suborg_id, suborg_name, timestamp, user_id, api_key_name, download_item_id, download_item_type, subscription_id, order_reference, 
+    plan_name, quota_used_km2, total_downloaded_km2, download_asset_type, geojson_geometry
+-Output CSV file includes the following data columns:
+    - org_name, downloaded_item_type, quota_used_km2, total_downloaded_km2, download_asset_type, geometry, centroid, minx, miny, maxy, maxx, area_km2
+    -file name is the following: 'PlanetAOI_Conversion_(year)_(month).csv'
+"""
 import geopandas
 import pandas as pd
 
