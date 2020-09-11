@@ -11,8 +11,9 @@ from shapely.geometry import shape, Point, Polygon, MultiPoint
 from sklearn.cluster import DBSCAN
 from geopandas import GeoSeries
 
-# todo list
-# add script description
+# This script converts Area of Interest (AOI) footprints from Planet Labs data ordered each month through CSDAP into usaable DESIS tasking regions. The script employs a density algorithm that reduces the number of tasking areas. 
+
+#todo list:
 # add doc strings to function
 # several tasks could probably be made into functions
 
