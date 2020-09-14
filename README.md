@@ -12,7 +12,9 @@ geopy, geojsonio, geopandas, numpy, pandas, pyproj, shapely, sklearn
 3. The script will first prompt to enter the csv file name.
 4. User will next be prompted to enter the year (e.g., xxxx) of the mirrored data. This will be included in the output file name.
 5. User will then be prompted to enter the month (e.g., xx) of the mirrored data. This will be included in the output file name.
-6. The script will output a csv file.
+6. User will then be prompted to enter the minimum number of samples for the DBSCAN clustering algorithm. If no user input or input not an integer, the default value is 1.
+7. User will finally be prompted to enter the desired epsilon value for the DBSCAN clustering algorithm. If no user input or input not an integer, the default value is 5.
+8. The script will output a csv file.
 
 ## Examples
 1. User downloads the following Planet Labs monthly data order csv file to convert for DESIS taskeing: "NASA_Mirror_2020_06NASA_Mirror_2020_06.csv." Enter the following command:
@@ -24,3 +26,7 @@ In this case, the user will enter "NASA_Mirror_2020_06NASA_Mirror_2020_06.csv"
 In this case, the user will enter "2020."  The year must be entered as a four-digit year or the script will invoke an error 
 4. User will be prompted with "Please enter the month that the data was mirrored in the following format yyyy:
 Which is "06" for June.  The month must be entered as two digits or the script will invoke an error. 
+5. User will be prompted with "Please enter an integer value for the minimum number of samples for the DBSCAN cluster algorithm:"
+The default value is 1.  
+6. User will be prompted with "Please enter an integer value for the epilson value for the DBSCAN cluster algorithm:"
+The default value is 5.
