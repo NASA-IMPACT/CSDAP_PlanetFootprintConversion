@@ -36,6 +36,19 @@ except ValueError:
 
 outfile = 'PlanetAOI_Conversion_' + str(year) + '_' + str(month) + '.csv'
 
+try:
+    minimum_samples = int(input(
+        'Please enter an integer value for the minimum number of samples for the DBSCAN cluster algorithm:\n'))
+except ValueError:
+    print('Warning: Either no value was input for minimum samples or the input value was not an integer. The default value is 1.')
+    minimum_samples = 1
+try:
+    input_epsilon = int(input(
+        'Please enter an integer value for the epilson value for the DBSCAN cluster algorithm:\n'))
+except ValueError:
+    print('Warning: Either no epilson value was entered or the input value was not an integer. The default value is 5.')
+    input_epsilon = 5
+
 # create a pandas dataframe and prepare to convert to spatial geometry
 df = pd.DataFrame(planet_order)
 coordinates = 'coordinates'
@@ -175,8 +188,8 @@ xy_coords = distancedf.as_matrix(columns=['lat', 'lon'])
 
 # compute the DBSCAN and determine the number of clusters; reason is to reduce the density of polygons
 kms_per_radian = 6371.0088
-epsilon = 5 / kms_per_radian
-db = DBSCAN(eps=epsilon, min_samples=1, algorithm='ball_tree',
+epsilon = input_epsilon / kms_per_radian
+db = DBSCAN(eps=epsilon, min_samples=minimum_samples, algorithm='ball_tree',
             metric='haversine').fit(np.radians(xy_coords))
 cluster_labels = db.labels_
 num_clusters = len(set(cluster_labels))
