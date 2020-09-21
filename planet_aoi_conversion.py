@@ -1,6 +1,10 @@
 import argparse
+import cartopy
+import cartopy.crs as ccrs
 import geojsonio
 import geopandas
+import geoplot as gplt
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pyproj
@@ -8,6 +12,7 @@ import pyproj
 from geopy.distance import great_circle
 from shapely.geometry import shape
 from shapely.geometry import shape, Point, Polygon, MultiPoint
+from shapely import wkt
 from sklearn.cluster import DBSCAN
 from geopandas import GeoSeries
 
@@ -221,3 +226,37 @@ rs = rep_points.apply(lambda row: distancedf[(distancedf['lat'] == row['lat']) |
 # export as a csv file
 finaldf = rs.drop(['lat', 'lon'], axis=1)
 finaldf.to_csv(outfile, index=False)
+
+#create plots
+polygons = geopandas.read_file(outfile)
+#create a geopandas dataframe and prepare to convert to spatial geometry
+polygons['geometry'] = polygons['centroid'].apply(wkt.loads)
+my_df = geopandas.GeoDataFrame(polygons, geometry='geometry')
+
+#get centroids from polygons
+polygonCentroid = my_df['centroid']
+#extract centroid coordinates
+centroidList = my_df.geometry.apply(coord_lister_point)
+#create new dataframe and list the centroid coordinates into separate variables
+centroidCoordinates = pd.DataFrame(centroidList)
+centroidCoordinates['a5'] = centroidCoordinates['geometry'].str[0]
+centroidCoordinates['a5.y'], centroidCoordinates['a5.x'] = centroidCoordinates['a5'].str[0], centroidCoordinates['a5'].str[1]
+centroid_x2 = centroidCoordinates['a5.x'].tolist()
+centroid_y2 = centroidCoordinates['a5.y'].tolist()
+
+#create scatterplot with centroid coordinates
+plt.scatter(centroid_y2,centroid_x2, color='red')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.title('Planet AOI Scatterplot')
+plt.savefig(outfile + '_scatterplot.png')
+
+#create world map with centroid coodinates plots
+ax = plt.axes(projection=ccrs.PlateCarree())
+plt.title('Planet AOIs')
+ax.gridlines(draw_labels=True, dms=True)
+ax.plot(centroid_y2, centroid_x2, markersize=5,marker='o',linestyle='',color='red',transform=ccrs.PlateCarree())
+ax.coastlines()
+ax.set_global()
+plt.savefig(outfile + '_map_plot.png')
+
