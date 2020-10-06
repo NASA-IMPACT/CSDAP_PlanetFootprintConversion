@@ -189,7 +189,7 @@ distancedf.drop_duplicates(subset='envelope', keep=False, inplace=True)
 
 # prepare dataframe to compute DCSCAN clustering
 distancedf['lat'], distancedf['lon'] = centroidCoords['a5.x'], centroidCoords['a5.y']
-xy_coords = distancedf.as_matrix(columns=['lat', 'lon'])
+xy_coords = distancedf[['lat', 'lon']].to_numpy()
 
 # compute the DBSCAN and determine the number of clusters; reason is to reduce the density of polygons
 kms_per_radian = 6371.0088
@@ -197,7 +197,7 @@ epsilon = input_epsilon / kms_per_radian
 db = DBSCAN(eps=epsilon, min_samples=minimum_samples, algorithm='ball_tree',
             metric='haversine').fit(np.radians(xy_coords))
 cluster_labels = db.labels_
-num_clusters = len(set(cluster_labels))
+num_clusters = len(set(cluster_labels)) - 1
 clusters = pd.Series([xy_coords[cluster_labels == n]
                       for n in range(num_clusters)])
 print('Number of clusters: {}'.format(num_clusters))
