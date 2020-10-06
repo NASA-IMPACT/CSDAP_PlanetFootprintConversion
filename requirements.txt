@@ -1,0 +1,11 @@
+cartopy==0.18.0
+geojsonio==0.0.3
+geopandas==0.8.1
+geoplot==0.4.1
+geopy==2.0.0
+matplotlib==3.3.2
+numpy==1.19.2
+pandas==1.1.2
+pyproj==2.6.1.post1
+scikit_learn==0.23.2
+Shapely==1.7.1
