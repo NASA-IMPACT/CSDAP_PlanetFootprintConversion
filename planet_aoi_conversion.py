@@ -52,7 +52,7 @@ try:
         'Please enter an integer value for the epilson value for the DBSCAN cluster algorithm:\n'))
 except ValueError:
     print('Warning: Either no epilson value was entered or the input value was not an integer. The default value is 5.')
-    input_epsilon = 5
+    input_epsilon = 25
 
 # create a pandas dataframe and prepare to convert to spatial geometry
 df = pd.DataFrame(planet_order)
